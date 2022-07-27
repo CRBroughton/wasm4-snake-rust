@@ -5,3 +5,9 @@ pub fn set_palette(palette: [u32; 4]) {
         *wasm4::PALETTE = palette;
     }
 }
+
+pub fn set_draw_colour(idx: u16) {
+    unsafe {
+        *wasm4::DRAW_COLORS = idx.into()
+    }
+}
