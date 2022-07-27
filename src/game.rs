@@ -9,6 +9,7 @@ const FRUIT_SPRITE: [u8; 16] = [ 0x00,0xa0,0x02,0x00,0x0e,0xf0,0x36,0x5c,0xd6,0x
 pub struct Game {
     rng: Rng,
     snake: Snake,
+    score: u32,
     frame_count: u32,
     current_speed: u32,
     prev_gamepad: u8,
@@ -20,6 +21,7 @@ impl Game {
         let rng = Rng::with_seed(235);
         Self {
             snake: Snake::new(),
+            score: 0,
             frame_count: 0,
             current_speed: 15,
             prev_gamepad: 0,
@@ -35,12 +37,17 @@ impl Game {
         self.frame_count += 1;
 
         self.input();
+
+        let str = format!("Score: {:}", self.score);
+
+        wasm4::text(str, 1, 1);
         
         if self.frame_count % self.current_speed == 0 {
             let dropped_pos = self.snake.update();
 
             if self.snake.is_dead() {
                 self.current_speed = 15;
+                self.score = 0;
                 self.snake = Snake::new();
                 self.fruit = Point {
                     x: self.rng.i32(0..20),
@@ -51,6 +58,7 @@ impl Game {
             if self.snake.body[0] == self.fruit {
                 if let Some(last_pos) = dropped_pos {
                     self.snake.body.push(last_pos);
+                    self.score += 1;
 
                     if self.current_speed > 5 {
                         self.current_speed -= 1
