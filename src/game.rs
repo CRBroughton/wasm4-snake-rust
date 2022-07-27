@@ -1,6 +1,5 @@
 
-use crate::snake::{Point, Snake};
-use crate::wasm4;
+use crate::snake::Snake;
 
 pub struct Game {
     snake: Snake,
