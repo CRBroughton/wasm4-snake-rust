@@ -2,8 +2,9 @@
 use fastrand::Rng;
 use crate::{snake::Snake, snake::Point};
 use crate::wasm4;
+use crate::palette::set_draw_colour;
 
-const FRUIT: [u8; 16] = [ 0x00,0xa0,0x02,0x00,0x0e,0xf0,0x36,0x5c,0xd6,0x57,0xd5,0x57,0x35,0x5c,0x0f,0xf0 ];
+const FRUIT_SPRITE: [u8; 16] = [ 0x00,0xa0,0x02,0x00,0x0e,0xf0,0x36,0x5c,0xd6,0x57,0xd5,0x57,0x35,0x5c,0x0f,0xf0 ];
 
 pub struct Game {
     rng: Rng,
@@ -24,6 +25,7 @@ impl Game {
                 x: rng.i32(0..20),
                 y: rng.i32(0..20)
             },
+            rng,
         }
     }
 
@@ -36,6 +38,17 @@ impl Game {
             self.snake.update();
         }
         self.snake.draw();
+        
+        set_draw_colour(0x4320);
+        wasm4::blit(
+            &FRUIT_SPRITE,
+            self.fruit.x * 8,
+            self.fruit.y * 8,
+            8,
+            8,
+            wasm4::BLIT_2BPP,
+        );
+
     }
     
     pub fn input(&mut self) {
