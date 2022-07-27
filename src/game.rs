@@ -40,6 +40,7 @@ impl Game {
             let dropped_pos = self.snake.update();
 
             if self.snake.is_dead() {
+                self.current_speed = 15;
                 self.snake = Snake::new();
                 self.fruit = Point {
                     x: self.rng.i32(0..20),
