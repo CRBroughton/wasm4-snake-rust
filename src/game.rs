@@ -37,6 +37,14 @@ impl Game {
         if self.frame_count % 15 == 0 {
             let dropped_pos = self.snake.update();
 
+            if self.snake.is_dead() {
+                self.snake = Snake::new();
+                self.fruit = Point {
+                    x: self.rng.i32(0..20),
+                    y: self.rng.i32(0..20),
+                };
+            }
+
             if self.snake.body[0] == self.fruit {
                 if let Some(last_pos) = dropped_pos {
                     self.snake.body.push(last_pos);

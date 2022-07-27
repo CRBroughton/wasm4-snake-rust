@@ -76,4 +76,11 @@ impl Snake {
             self.direction = Point { x: 1, y: 0 };
         }
     }
+
+    pub fn is_dead(&self) -> bool {
+        self.body
+            .iter()
+            .skip(1)
+            .any(|&body_section| body_section == self.body[0])
+    }
 }
