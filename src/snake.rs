@@ -41,15 +41,39 @@ impl Snake {
             y: (self.body[0].y + self.direction.y) % 20,
         }
     );
+        
+        if self.body[0].x < 0 {
+            self.body[0].x = 19;
+        }
+
+        if self.body[0].y < 0 {
+            self.body[0].y = 19;
+        }
+
+        self.body.pop()
+    }
+
+    pub fn down(&mut self) {
+        if self.direction.y == 0 {
+            self.direction = Point { x: 0, y: 1 };
+        }
+    }
+
+    pub fn up(&mut self) {
+        if self.direction.y == 0 {
+            self.direction = Point { x: 0, y: -1 };
+        }
+    }
     
-    if self.body[0].x < 0 {
-        self.body[0].x = 19;
+    pub fn left(&mut self) {
+        if self.direction.x == 0 {
+            self.direction = Point { x: -1, y: 0 };
+        }
     }
 
-    if self.body[0].y < 0 {
-        self.body[0].y = 19;
-    }
-
-    self.body.pop()
+    pub fn right(&mut self) {
+        if self.direction.x == 0 {
+            self.direction = Point { x: 1, y: 0 };
+        }
     }
 }
