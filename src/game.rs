@@ -35,7 +35,16 @@ impl Game {
         self.input();
         
         if self.frame_count % 15 == 0 {
-            self.snake.update();
+            let dropped_pos = self.snake.update();
+
+            if self.snake.body[0] == self.fruit {
+                if let Some(last_pos) = dropped_pos {
+                    self.snake.body.push(last_pos);
+                }
+
+                self.fruit.x = self.rng.i32(0..20);
+                self.fruit.y = self.rng.i32(0..20);
+            }
         }
         self.snake.draw();
         
