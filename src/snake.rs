@@ -32,4 +32,12 @@ impl Snake {
         set_draw_colour(0x4);
         wasm4::rect(self.body[0].x * 8, self.body[0].y * 8, 8, 8);
     }
+
+    pub fn update(&mut self) -> Option<Point> {
+        if self.body.len() > 1 {
+            self.body.pop()
+        } else {
+            None
+        }
+    }
 }
