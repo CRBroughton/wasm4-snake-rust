@@ -1,11 +1,12 @@
 
-use crate::{snake::Snake};
+use crate::{snake::Snake, snake::Point};
 use crate::wasm4;
 
 pub struct Game {
     snake: Snake,
     frame_count: u32,
     prev_gamepad: u8,
+    fruit: Point,
 }
 
 impl Game {
@@ -14,6 +15,7 @@ impl Game {
             snake: Snake::new(),
             frame_count: 0,
             prev_gamepad: 0,
+            fruit: Point { x: 0, y: 0 },
         }
     }
 
