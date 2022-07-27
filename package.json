@@ -1,0 +1,20 @@
+{
+  "name": "wasm-4-snake",
+  "version": "1.0.0",
+  "description": "A game written in Rust for the [WASM-4](https://wasm4.org) fantasy console.",
+  "main": "index.js",
+  "scripts": {
+    "commit": "git cz"
+  },
+  "config": {
+    "commitizen": {
+      "path": "cz-conventional-changelog"
+    }
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "cz-conventional-changelog": "3.3.0"
+  }
+}
