@@ -10,6 +10,7 @@ pub struct Game {
     rng: Rng,
     snake: Snake,
     frame_count: u32,
+    current_speed: u32,
     prev_gamepad: u8,
     fruit: Point,
 }
@@ -20,6 +21,7 @@ impl Game {
         Self {
             snake: Snake::new(),
             frame_count: 0,
+            current_speed: 15,
             prev_gamepad: 0,
             fruit: Point {
                 x: rng.i32(0..20),
@@ -34,7 +36,7 @@ impl Game {
 
         self.input();
         
-        if self.frame_count % 15 == 0 {
+        if self.frame_count % self.current_speed == 0 {
             let dropped_pos = self.snake.update();
 
             if self.snake.is_dead() {
@@ -48,6 +50,10 @@ impl Game {
             if self.snake.body[0] == self.fruit {
                 if let Some(last_pos) = dropped_pos {
                     self.snake.body.push(last_pos);
+
+                    if self.current_speed > 5 {
+                        self.current_speed -= 1
+                    }
                 }
 
                 self.fruit.x = self.rng.i32(0..20);
