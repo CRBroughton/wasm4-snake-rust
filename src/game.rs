@@ -1,8 +1,10 @@
 
+use fastrand::Rng;
 use crate::{snake::Snake, snake::Point};
 use crate::wasm4;
 
 pub struct Game {
+    rng: Rng,
     snake: Snake,
     frame_count: u32,
     prev_gamepad: u8,
@@ -11,11 +13,15 @@ pub struct Game {
 
 impl Game {
     pub fn new() -> Self {
+        let rng = Rng::with_seed(235);
         Self {
             snake: Snake::new(),
             frame_count: 0,
             prev_gamepad: 0,
-            fruit: Point { x: 0, y: 0 },
+            fruit: Point {
+                x: rng.i32(0..20),
+                y: rng.i32(0..20)
+            },
         }
     }
 
