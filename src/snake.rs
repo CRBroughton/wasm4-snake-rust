@@ -1,4 +1,4 @@
-use crate::wasm4;
+use crate::{wasm4, palette::set_draw_colour};
 
 #[derive(Clone, Copy, PartialEq, Eq)]
 pub struct Point {
@@ -24,8 +24,12 @@ impl Snake {
     }
 
     pub fn draw(&self) {
+        set_draw_colour(0x43);
         for &Point { x, y } in self.body.iter() {
             wasm4::rect(x * 8, y * 8, 8, 8)
         }
+
+        set_draw_colour(0x4);
+        wasm4::rect(self.body[0].x * 8, self.body[0].y * 8, 8, 8);
     }
 }
