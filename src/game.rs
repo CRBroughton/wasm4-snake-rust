@@ -1,7 +1,7 @@
 
 use fastrand::Rng;
 use crate::{snake::Snake, snake::Point};
-use crate::wasm4;
+use crate::wasm4::{self, TONE_PULSE1};
 use crate::palette::set_draw_colour;
 
 const FRUIT_SPRITE: [u8; 16] = [ 0x00,0xa0,0x02,0x00,0x0e,0xf0,0x36,0x5c,0xd6,0x57,0xd5,0x57,0x35,0x5c,0x0f,0xf0 ];
@@ -58,6 +58,7 @@ impl Game {
             if self.snake.body[0] == self.fruit {
                 if let Some(last_pos) = dropped_pos {
                     self.snake.body.push(last_pos);
+                    wasm4::tone(650, 1, 50, TONE_PULSE1);
                     self.score += 1;
 
                     if self.current_speed > 5 {
